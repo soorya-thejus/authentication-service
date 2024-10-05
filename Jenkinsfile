@@ -22,6 +22,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+		bat "docker rm -f auth-container"
+                bat "docker rmi -f auth-image"
                 bat "docker build -t auth-image ."
                 bat "docker run -p 8090:8090 -d --name auth-container auth-image"
             }
